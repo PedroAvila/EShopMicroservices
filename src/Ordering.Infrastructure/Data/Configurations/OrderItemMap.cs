@@ -20,7 +20,8 @@ public class OrderItemMap : IEntityTypeConfiguration<OrderItem>
             .HasForeignKey(x=> x.ProductId);
 
         builder.Property(x=>x.Quantity).IsRequired();
-        builder.Property(x => x.Price).IsRequired();
+        builder.Property(oi => oi.Price)
+            .HasPrecision(18, 2).IsRequired();
 
     }
 }

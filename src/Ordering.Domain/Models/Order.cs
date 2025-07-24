@@ -1,5 +1,4 @@
-﻿
-namespace Ordering.Domain.Models;
+﻿namespace Ordering.Domain.Models;
 
 public class Order : Aggregate<OrderId>
 {
@@ -19,7 +18,14 @@ public class Order : Aggregate<OrderId>
         private set { }
     }
 
-    public static Order Create(OrderId id, CustomerId customerId, OrderName orderName, Address shippingAddress, Address billingAddress, Payment payment)
+    public static Order Create(
+        OrderId id,
+        CustomerId customerId,
+        OrderName orderName,
+        Address shippingAddress,
+        Address billingAddress,
+        Payment payment
+    )
     {
         var order = new Order
         {
@@ -29,13 +35,19 @@ public class Order : Aggregate<OrderId>
             ShippingAddress = shippingAddress,
             BillingAddress = billingAddress,
             Payment = payment,
-            Status = OrderStatus.Pending
+            Status = OrderStatus.Pending,
         };
         order.AddDomainEvent(new OrderCreatedEvent(order));
         return order;
     }
 
-    public void Update(OrderName orderName, Address shippingAddress, Address billingAddress, Payment payment, OrderStatus status)
+    public void Update(
+        OrderName orderName,
+        Address shippingAddress,
+        Address billingAddress,
+        Payment payment,
+        OrderStatus status
+    )
     {
         OrderName = orderName;
         ShippingAddress = shippingAddress;
